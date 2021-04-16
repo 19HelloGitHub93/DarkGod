@@ -132,14 +132,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Login
       objectReference: {fileID: 0}
-    - target: {fileID: 100008, guid: 9bf881a57b5a8484b8de93dd99355269, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 100044, guid: 9bf881a57b5a8484b8de93dd99355269, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 9bf881a57b5a8484b8de93dd99355269, type: 3}
       propertyPath: m_RootOrder
       value: 2

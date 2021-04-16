@@ -7,6 +7,7 @@ public class GameRoot : MonoBehaviour
     public static GameRoot Instance = null;
     
     public LoadingWnd loadingWnd;
+    public DynamicWnd dynamicWnd;
     
     void Start()
     {
@@ -27,5 +28,7 @@ public class GameRoot : MonoBehaviour
         loginSys.InitSys();
 
         loginSys.EnterLogin();
+        
+        dynamicWnd.SetTips("Test");
     }
 }

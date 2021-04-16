@@ -172,6 +172,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loadingWnd: {fileID: 608506656}
+  dynamicWnd: {fileID: 108200581}
 --- !u!114 &104170788
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -211,6 +212,36 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgAudio: {fileID: 451914687}
   uiAudio: {fileID: 475594790}
+--- !u!114 &108200581 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5946442048534153637, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
+    type: 3}
+  m_PrefabInstance: {fileID: 164519513137296842}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 27317ff6f0966954f84b712d706bc345, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &220031760 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7566624906078255882, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
+    type: 3}
+  m_PrefabInstance: {fileID: 164519513137296842}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!111 &220031761 stripped
+Animation:
+  m_CorrespondingSourceObject: {fileID: 4064970253860623138, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
+    type: 3}
+  m_PrefabInstance: {fileID: 164519513137296842}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &283424907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -877,6 +908,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 934479799}
     m_Modifications:
+    - target: {fileID: 2776185443808492708, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2879652680205625589, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
         type: 3}
       propertyPath: m_Pivot.x
@@ -990,8 +1026,18 @@ PrefabInstance:
     - target: {fileID: 5420345128885652431, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5946442048534153637, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
+        type: 3}
+      propertyPath: tipsAni
+      value: 
+      objectReference: {fileID: 220031761}
+    - target: {fileID: 5946442048534153637, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
+        type: 3}
+      propertyPath: txtTips
+      value: 
+      objectReference: {fileID: 220031760}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8165f6ef6a04348a5e7d986a5c5df5, type: 3}
 --- !u!224 &164519513137296843 stripped

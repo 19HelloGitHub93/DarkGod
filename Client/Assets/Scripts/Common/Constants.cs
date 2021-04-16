@@ -5,4 +5,5 @@ using UnityEngine;
 public class Constants
 {
     public const string SceneLogin = "SceneLogin";
+    public const string BGLogin = "bgLogin";
 }

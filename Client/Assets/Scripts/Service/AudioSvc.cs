@@ -15,7 +15,19 @@ public class AudioSvc : MonoBehaviour
 
     public void PlayBGMusic(string name, bool isLoop=true)
     {
-        AudioClip audio = ResSvc.Instance.LoadAudio(name, isLoop);
-        
+        AudioClip audio = ResSvc.Instance.LoadAudio("ResAudio/"+name, true);
+        if (bgAudio.clip == null || bgAudio.clip.name != audio.name)
+        {
+            bgAudio.clip = audio;
+            bgAudio.loop = isLoop;
+            bgAudio.Play();
+        }
+    }
+
+    public void PlayUIAduio(string name)
+    {
+        AudioClip audio = ResSvc.Instance.LoadAudio("ResAudio/"+name,true);
+        uiAudio.clip = audio;
+        uiAudio.Play();
     }
 }

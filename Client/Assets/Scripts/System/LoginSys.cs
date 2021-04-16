@@ -2,20 +2,22 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LoginSys : MonoBehaviour
+public class LoginSys : SystemRoot
 {
     public static LoginSys Instance = null;
     public LoginWnd loginWnd;
-    public void InitSys()
+    public override void InitSys()
     {
+        base.InitSys();
         Instance = this;
     }
 
     public void EnterLogin()
     {
-        ResSvc.Instance.AsyncLoadScene(Constants.SceneLogin, () =>
+        resSvc.AsyncLoadScene(Constants.SceneLogin, () =>
         {
             loginWnd.SetWndState();
+            audioSvc.PlayBGMusic(Constants.BGLogin);
         });
     }
 }
