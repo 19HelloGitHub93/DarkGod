@@ -32,6 +32,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.10.5.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d">
+      <HintPath>..\Libs\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="PESocket, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
       <HintPath>..\Libs\PESocket.dll</HintPath>
     </Reference>
