@@ -9,11 +9,36 @@ public class DynamicWnd : WindowRoot
     public Animation tipsAni;
     public Text txtTips;
 
+    private bool isTipsShow = false;
+    private Queue<string> tipsQue = new Queue<string>();
+
     protected override void InitWnd()
     {
         base.InitWnd();
         SetActive(txtTips,false);
     }
+
+    public void AddTips(string tips)
+    {
+        lock (tipsQue)
+        {
+            tipsQue.Enqueue(tips);
+        }
+    }
+
+    private void Update()
+    {
+        if (tipsQue.Count > 0&& isTipsShow==false)
+        {
+            lock (tipsQue)
+            {
+                string tips = tipsQue.Dequeue();
+                isTipsShow = true;
+                SetTips(tips);
+            }
+        }
+    }
+    
 
     public void SetTips(string tips)
     {
@@ -26,6 +51,7 @@ public class DynamicWnd : WindowRoot
         StartCoroutine(AniPlayDone(clip.length, () =>
         {
             SetActive(txtTips,false);
+            isTipsShow = false;
         }));
     }
 

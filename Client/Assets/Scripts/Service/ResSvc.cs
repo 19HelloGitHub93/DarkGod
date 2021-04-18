@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Xml;
+using PEProtocol;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.SceneManagement;
+using LogType = PEProtocol.LogType;
 
 public class ResSvc : MonoBehaviour
 {
@@ -11,6 +14,7 @@ public class ResSvc : MonoBehaviour
     public void InitSvc()
     {
         Instance = this;
+        InitRDNameCfg();
     }
 
     private Action prgCB = null;
@@ -56,4 +60,60 @@ public class ResSvc : MonoBehaviour
         }
         return au;
     }
+
+    #region InitCfgs
+    private List<string> surnameList = new List<string>();
+    private List<string> manList = new List<string>();
+    private List<string> womanList = new List<string>();
+    private void InitRDNameCfg()
+    {
+        TextAsset xml = Resources.Load<TextAsset>(PathDefine.RDNameCfg);
+        if (!xml)
+        {
+            PECommon.Log("xml file:"+PathDefine.RDNameCfg+"not exist",LogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodeList = doc.SelectSingleNode("root").ChildNodes;
+            for (int i = 0; i < nodeList.Count; i++)
+            {
+                XmlElement ele = nodeList[i] as XmlElement;
+                if(ele.GetAttributeNode("ID")==null)
+                    continue;
+                int id = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText) ;
+                foreach (XmlElement e in nodeList[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                       case "surname":
+                           surnameList.Add(e.InnerText);
+                           break;
+                       case "man":
+                           manList.Add(e.InnerText);
+                           break;
+                       case "woman":
+                           womanList.Add(e.InnerText);
+                           break;
+                    }
+                }
+            }
+        }
+    }
+    public string GetRDNameData(bool man=true)
+    {
+        System.Random rd =new System.Random();
+        string rdName = surnameList[PETools.RDInt(0, surnameList.Count - 1, rd)];
+        if (man)
+            rdName += manList[PETools.RDInt(0, manList.Count - 1, rd)];
+        else
+            rdName += womanList[PETools.RDInt(0, womanList.Count - 1, rd)];
+        
+        return rdName;
+    }
+    
+    #endregion
+    
 }

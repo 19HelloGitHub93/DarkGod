@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 104170789}
   - component: {fileID: 104170788}
   - component: {fileID: 104170790}
+  - component: {fileID: 104170791}
   m_Layer: 0
   m_Name: GameRoot
   m_TagString: Untagged
@@ -186,6 +187,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   loginWnd: {fileID: 510288849}
+  createWnd: {fileID: 1486869496}
 --- !u!114 &104170789
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -212,6 +214,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bgAudio: {fileID: 451914687}
   uiAudio: {fileID: 475594790}
+--- !u!114 &104170791
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 104170785}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aebf7bf3f74834c83b5efcf02b3e6b60, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &108200581 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5946442048534153637, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
@@ -224,24 +238,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27317ff6f0966954f84b712d706bc345, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &220031760 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7566624906078255882, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
-    type: 3}
-  m_PrefabInstance: {fileID: 164519513137296842}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!111 &220031761 stripped
-Animation:
-  m_CorrespondingSourceObject: {fileID: 4064970253860623138, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
-    type: 3}
-  m_PrefabInstance: {fileID: 164519513137296842}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &283424907
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -359,11 +355,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: LoginWnd
       objectReference: {fileID: 0}
-    - target: {fileID: 7917703515238295271, guid: f95268882dad0614ba20c24613379573,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f95268882dad0614ba20c24613379573, type: 3}
 --- !u!224 &283424908 stripped
@@ -401,7 +392,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.5
+  m_Volume: 0
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -901,6 +892,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1486869496 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1510773474473145780, guid: 6387454b0b8ccaa459a34b0466ad82a6,
+    type: 3}
+  m_PrefabInstance: {fileID: 4489192341718017517}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fa9feaf459c64a95b93c80c59263903, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &164519513137296842
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -908,11 +911,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 934479799}
     m_Modifications:
-    - target: {fileID: 2776185443808492708, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2879652680205625589, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1023,21 +1021,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: DynamicWnd
       objectReference: {fileID: 0}
-    - target: {fileID: 5420345128885652431, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5946442048534153637, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
-        type: 3}
-      propertyPath: tipsAni
-      value: 
-      objectReference: {fileID: 220031761}
-    - target: {fileID: 5946442048534153637, guid: 2d8165f6ef6a04348a5e7d986a5c5df5,
-        type: 3}
-      propertyPath: txtTips
-      value: 
-      objectReference: {fileID: 220031760}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d8165f6ef6a04348a5e7d986a5c5df5, type: 3}
 --- !u!224 &164519513137296843 stripped
@@ -1163,11 +1146,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CreateWnd
       objectReference: {fileID: 0}
-    - target: {fileID: 8072765898899234229, guid: 6387454b0b8ccaa459a34b0466ad82a6,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6387454b0b8ccaa459a34b0466ad82a6, type: 3}
 --- !u!224 &4489192341718017518 stripped
@@ -1292,11 +1270,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: LoadingWnd
-      objectReference: {fileID: 0}
-    - target: {fileID: 8535696674593340208, guid: b6d557ba6f0f16448bc75e55ffa4ee86,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6d557ba6f0f16448bc75e55ffa4ee86, type: 3}
