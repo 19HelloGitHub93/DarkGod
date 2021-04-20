@@ -1,6 +1,8 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class WindowRoot : MonoBehaviour
@@ -85,6 +87,32 @@ public class WindowRoot : MonoBehaviour
     }
 
     #endregion
+
+    protected T GetOrAddComponent<T>(GameObject go) where T: Component
+    {
+        T component = go.GetComponent<T>();
+        if (component is null)
+            component = go.AddComponent<T>();
+        return component;
+    }
     
-    
+    #region ClickEvts
+
+    protected void OnClickDown(GameObject go, Action<PointerEventData> cb)
+    {
+        PEListener listener = GetOrAddComponent<PEListener>(go);
+        listener.onClickDown = cb;
+    }
+    protected void OnClickUp(GameObject go, Action<PointerEventData> cb)
+    {
+        PEListener listener = GetOrAddComponent<PEListener>(go);
+        listener.onClickUp = cb;
+    }
+    protected void OnDrag(GameObject go, Action<PointerEventData> cb)
+    {
+        PEListener listener = GetOrAddComponent<PEListener>(go);
+        listener.onDrag = cb;
+    }
+
+    #endregion
 }

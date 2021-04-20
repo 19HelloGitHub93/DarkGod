@@ -11,14 +11,17 @@ using LogType = PEProtocol.LogType;
 public class ResSvc : MonoBehaviour
 {
     public static ResSvc Instance = null;
+
     public void InitSvc()
     {
         Instance = this;
-        InitRDNameCfg();
+        InitRDNameCfg(PathDefine.RDNameCfg);
+        InitMapCfg(PathDefine.MapCfg);
     }
 
     private Action prgCB = null;
-    public void AsyncLoadScene(string name,Action loaded)
+
+    public void AsyncLoadScene(string name, Action loaded)
     {
         GameRoot.Instance.loadingWnd.SetWndState();
         AsyncOperation sceneAsync = SceneManager.LoadSceneAsync(name);
@@ -35,7 +38,6 @@ public class ResSvc : MonoBehaviour
                 GameRoot.Instance.loadingWnd.SetWndState(false);
             }
         };
-
     }
 
     void Update()
@@ -55,22 +57,42 @@ public class ResSvc : MonoBehaviour
             au = Resources.Load<AudioClip>(path);
             if (cache)
             {
-                adDic.Add(path,au);
+                adDic.Add(path, au);
             }
         }
+
         return au;
     }
 
+    private Dictionary<string, GameObject> goDic = new Dictionary<string, GameObject>();
+    public GameObject LoadPrefab(string path, bool cache)
+    {
+        GameObject prefab = null;
+        if (!goDic.TryGetValue(path, out prefab))
+        {
+            prefab = Resources.Load<GameObject>(path);
+            if(cache)
+                goDic.Add(path,prefab);
+        }
+
+        GameObject go = null;
+        if (prefab != null)
+            go = Instantiate(prefab);
+        return go;
+    }
+
     #region InitCfgs
+
     private List<string> surnameList = new List<string>();
     private List<string> manList = new List<string>();
     private List<string> womanList = new List<string>();
-    private void InitRDNameCfg()
+
+    private void InitRDNameCfg(string path)
     {
-        TextAsset xml = Resources.Load<TextAsset>(PathDefine.RDNameCfg);
+        TextAsset xml = Resources.Load<TextAsset>(path);
         if (!xml)
         {
-            PECommon.Log("xml file:"+PathDefine.RDNameCfg+"not exist",LogType.Error);
+            PECommon.Log("xml file:" + path + "not exist", LogType.Error);
         }
         else
         {
@@ -81,39 +103,116 @@ public class ResSvc : MonoBehaviour
             for (int i = 0; i < nodeList.Count; i++)
             {
                 XmlElement ele = nodeList[i] as XmlElement;
-                if(ele.GetAttributeNode("ID")==null)
+                if (ele.GetAttributeNode("ID") == null)
                     continue;
-                int id = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText) ;
+                int id = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
                 foreach (XmlElement e in nodeList[i].ChildNodes)
                 {
                     switch (e.Name)
                     {
-                       case "surname":
-                           surnameList.Add(e.InnerText);
-                           break;
-                       case "man":
-                           manList.Add(e.InnerText);
-                           break;
-                       case "woman":
-                           womanList.Add(e.InnerText);
-                           break;
+                        case "surname":
+                            surnameList.Add(e.InnerText);
+                            break;
+                        case "man":
+                            manList.Add(e.InnerText);
+                            break;
+                        case "woman":
+                            womanList.Add(e.InnerText);
+                            break;
                     }
                 }
             }
         }
     }
-    public string GetRDNameData(bool man=true)
+
+    public string GetRDNameData(bool man = true)
     {
-        System.Random rd =new System.Random();
+        System.Random rd = new System.Random();
         string rdName = surnameList[PETools.RDInt(0, surnameList.Count - 1, rd)];
         if (man)
             rdName += manList[PETools.RDInt(0, manList.Count - 1, rd)];
         else
             rdName += womanList[PETools.RDInt(0, womanList.Count - 1, rd)];
-        
+
         return rdName;
     }
-    
+
+    private Dictionary<int, MapCfg> mapCfgDataDic = new Dictionary<int, MapCfg>(); 
+    private void InitMapCfg(string path)
+    {
+        TextAsset xml = Resources.Load<TextAsset>(path);
+        if (!xml)
+        {
+            PECommon.Log("xml file:" + path + "not exist", LogType.Error);
+        }
+        else
+        {
+            XmlDocument doc = new XmlDocument();
+            doc.LoadXml(xml.text);
+
+            XmlNodeList nodeList = doc.SelectSingleNode("root").ChildNodes;
+            for (int i = 0; i < nodeList.Count; i++)
+            {
+                XmlElement ele = nodeList[i] as XmlElement;
+                if (string.IsNullOrEmpty(ele.GetAttributeNode("ID").InnerText))
+                    continue;
+                int id = Convert.ToInt32(ele.GetAttributeNode("ID").InnerText);
+                MapCfg mapCfg = new MapCfg
+                {
+                    ID = id
+                };
+
+                foreach (XmlElement e in nodeList[i].ChildNodes)
+                {
+                    switch (e.Name)
+                    {
+                        case "mapName":
+                            mapCfg.mapName = e.InnerText;
+                            break;
+                        case "sceneName":
+                            mapCfg.sceneName = e.InnerText;
+                            break;
+                        case "mainCamPos":
+                        {
+                            string[] valArr = e.InnerText.Split(',');
+                            mapCfg.mainCamPos = new Vector3(float.Parse(valArr[0]), float.Parse(valArr[1]),
+                                float.Parse(valArr[2]));
+                        }
+                            break;
+                        case "mainCamRote":
+                        {
+                            string[] valArr = e.InnerText.Split(',');
+                            mapCfg.mainCamRote = new Vector3(float.Parse(valArr[0]), float.Parse(valArr[1]),
+                                float.Parse(valArr[2]));
+                        }
+                            break;
+                        case "playerBornPos":
+                        {
+                            string[] valArr = e.InnerText.Split(',');
+                            mapCfg.playerBornPos = new Vector3(float.Parse(valArr[0]), float.Parse(valArr[1]),
+                                float.Parse(valArr[2]));
+                        }
+                            break;
+                        case "playerBornRote":
+                        {
+                            string[] valArr = e.InnerText.Split(',');
+                            mapCfg.playerBornRote = new Vector3(float.Parse(valArr[0]), float.Parse(valArr[1]),
+                                float.Parse(valArr[2]));
+                        }
+                            break;
+                    }
+                }
+                
+                mapCfgDataDic.Add(id,mapCfg);
+            }
+        }
+    }
+
+    public MapCfg GetMapCfgData(int id)
+    {
+        MapCfg data;
+        mapCfgDataDic.TryGetValue(id, out data);
+        return data;
+    }
     #endregion
-    
 }

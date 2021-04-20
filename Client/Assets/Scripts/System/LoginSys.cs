@@ -29,21 +29,17 @@ public class LoginSys : SystemRoot
         GameRoot.AddTips("登录成功");
         GameRoot.Instance.SetPlayerData(msg.rspLogin);
         if (msg.rspLogin.playerData.name == "")
-        {
             createWnd.SetWndState();
-        }
         else
-        {
-            
-        }
+            MainCitySys.Instance.EnterMainCity();
+        
         loginWnd.SetWndState(false);
     }
 
     public void RspRename(GameMsg msg)
     {
         GameRoot.Instance.SetPlayerName(msg.rspRename.name);
-        
-        
+        MainCitySys.Instance.EnterMainCity();
         createWnd.SetWndState(false);
     }
 }
