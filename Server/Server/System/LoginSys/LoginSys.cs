@@ -78,5 +78,10 @@ namespace Server.System.LoginSys
             }
             pack.session.SendMsg(msg);
         }
+
+        public void ClearOffineData(ServerSession session)
+        {
+            cacheSvc.AcctOffLine(session);
+        }
     }
 }

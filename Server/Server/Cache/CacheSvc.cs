@@ -54,5 +54,20 @@ namespace Server.Cache
         {
             return _dbMgr.UpdatePlayerData(id,playerData);
         }
+
+        public void AcctOffLine(ServerSession session)
+        {
+            foreach (var item in onLineAcctDic)
+            {
+                if (item.Value == session)
+                {
+                    onLineAcctDic.Remove(item.Key);
+                    break;
+                }
+            }
+
+            bool succ = onLineSessionDic.Remove(session);
+            PECommon.Log("offine result SessionID:"+session.sessionID + " " + succ);
+        }
     }
 }

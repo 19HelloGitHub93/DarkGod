@@ -41,7 +41,7 @@ namespace Server.Service.NetSvc
         {
             if (msgPackQue.Count > 0)
             {
-                PECommon.Log("PackCount:"+msgPackQue.Count);
+                //PECommon.Log("PackCount:"+msgPackQue.Count);
                 lock (obj)
                 {
                     MsgPack pack = msgPackQue.Dequeue();

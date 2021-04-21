@@ -31,5 +31,16 @@ namespace Server
         {
             NetSvc.Instance.Update();
         }
+
+        private int SessionID = 0;
+        public int GetSessionID()
+        {
+            if (SessionID == int.MaxValue)
+            {
+                SessionID = 0;
+            }
+
+            return SessionID += 1;
+        }
     }
 }
