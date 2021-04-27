@@ -1,5 +1,6 @@
 using Server.Cache;
 using Server.DB;
+using Server.Service;
 using Server.Service.NetSvc;
 using Server.System.LoginSys;
 
@@ -25,6 +26,8 @@ namespace Server
             CacheSvc.Instance.Init();
             NetSvc.Instance.Init();
             LoginSys.Instance.Init();
+            GuideSys.Instance.Init();
+            CfgSys.Instance.Init();
         }
 
         public void Update()

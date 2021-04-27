@@ -47,7 +47,8 @@ namespace Server.DB
                             apdef = reader.GetInt32("apdef"),
                             dodge = reader.GetInt32("dodge"),
                             pierce = reader.GetInt32("pierce"),
-                            critical = reader.GetInt32("critical")
+                            critical = reader.GetInt32("critical"),
+                            guideid = reader.GetInt32("guideid")
                         };
                     }
                     reader.Close();
@@ -73,6 +74,7 @@ namespace Server.DB
                     dodge = 7,
                     pierce = 5,
                     critical = 2,
+                    guideid = 1001
                 };
                 playerData.id = InsertNewAcctData(acct, pass, playerData);
             }
@@ -89,7 +91,9 @@ namespace Server.DB
             try
             {
                 MySqlCommand cmd = new MySqlCommand(
-                    "insert into account set acct=@acct,pass=@pass,name=@name,level=@level,exp=@exp,power=@power,coin=@coin,diamond=@diamond,hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge,pierce=@pierce,critical=@critical",conn);
+                    "insert into account set acct=@acct,pass=@pass,name=@name,level=@level,exp=@exp,power=@power,"+
+                    "coin=@coin,diamond=@diamond,hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge," +
+                    "pierce=@pierce,critical=@critical,guideid=@guideid",conn);
                 cmd.Parameters.Add("acct", acct);
                 cmd.Parameters.Add("pass", pass);
                 cmd.Parameters.Add("name", pd.name);
@@ -106,6 +110,7 @@ namespace Server.DB
                 cmd.Parameters.AddWithValue("dodge", pd.dodge);
                 cmd.Parameters.AddWithValue("pierce", pd.pierce);
                 cmd.Parameters.AddWithValue("critical", pd.critical);
+                cmd.Parameters.AddWithValue("guideid", pd.guideid);
                 cmd.ExecuteNonQuery();
                 id = (int) cmd.LastInsertedId;
             }
@@ -146,7 +151,9 @@ namespace Server.DB
             try
             {
                 MySqlCommand cmd = new MySqlCommand(
-                    "update account set name=@name,level=@level,exp=@exp,power=@power,coin=@coin,diamond=@diamond,hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge,pierce=@pierce,critical=@critical where id=@id",conn);
+                    "update account set name=@name,level=@level,exp=@exp,power=@power,coin=@coin,diamond=@diamond,"+
+                    "hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge,pierce=@pierce,critical=@critical,guideid=@guideid" +
+                    " where id=@id",conn);
                 cmd.Parameters.Add("id", @id);
                 cmd.Parameters.Add("name", playerData.name);
                 cmd.Parameters.Add("level", playerData.lv);
@@ -162,6 +169,8 @@ namespace Server.DB
                 cmd.Parameters.AddWithValue("dodge", playerData.dodge);
                 cmd.Parameters.AddWithValue("pierce", playerData.pierce);
                 cmd.Parameters.AddWithValue("critical", playerData.critical);
+                cmd.Parameters.AddWithValue("guideid", playerData.guideid);
+
                 cmd.ExecuteNonQuery();   
             }
             catch (Exception e)
