@@ -14,6 +14,7 @@ public class PlayerController : MonoBehaviour
 
     private float targetBlend;
     private float currentBlend;
+    public bool isMove = false;
 
     public void Init()
     {
@@ -32,20 +33,20 @@ public class PlayerController : MonoBehaviour
         
         if(currentBlend!=targetBlend)
             UpdateMixBlend();
-        
-        if (dir != Vector2.zero)
+        if (isMove)
         {
-            SetDir();
-            SetMove();
-            SetCam();
-            SetBlend(Constants.BlendWalk);
+            if (dir != Vector2.zero)
+            {
+                SetDir();
+                SetMove();
+                SetCam();
+                SetBlend(Constants.BlendWalk);
+            }
+            else
+            {
+                SetBlend(Constants.BlendIdle);
+            }
         }
-        else
-        {
-            SetBlend(Constants.BlendIdle);
-        }
-
-        
     }
 
     private void SetDir()
@@ -60,7 +61,7 @@ public class PlayerController : MonoBehaviour
         ctrl.Move(transform.forward * Time.deltaTime * Constants.PlayerMoveSpeed);
     }
 
-    private void SetCam()
+    public void SetCam()
     {
         if (camTrans != null)
             camTrans.position = transform.position - camOffset;

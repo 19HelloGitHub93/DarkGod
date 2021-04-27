@@ -23,12 +23,14 @@ public class MainCityWnd : WindowRoot
     public Text txtName;
     public Text txtExpPrg;
     public Transform expPrgTrans;
+    public Button btnGuide;
     #endregion
 
     private bool menuState = true;
     private float pointDis;
     private Vector2 startPos = Vector2.zero;
     private Vector2 defaultPos = Vector2.zero;
+    private AutoGuideCfg curtTaskData;
 
     #region MainFunctions
 
@@ -42,7 +44,7 @@ public class MainCityWnd : WindowRoot
         RefreshUI();
     }
 
-    private void RefreshUI()
+    public void RefreshUI()
     {
         PlayerData pd = GameRoot.Instance.playerData;
         SetText(txtFight,PECommon.GetFightByProps(pd));
@@ -50,6 +52,8 @@ public class MainCityWnd : WindowRoot
         imgPowerPrg.fillAmount = pd.power * 1.0f / PECommon.GetPowerLimit(pd.lv);
         SetText(txtLevel,pd.lv);
         SetText(txtName,pd.name);
+
+        #region expprg
 
         int expPrgVal = (int)(pd.exp*1.0f/PECommon.GetExpUpValByLv(pd.lv)*100);
         SetText(txtExpPrg,expPrgVal+"%");
@@ -77,11 +81,58 @@ public class MainCityWnd : WindowRoot
                 img.fillAmount = 0;
             }
         }
+
+        #endregion
+
+        curtTaskData = resSvc.GetAutoGuideCfg(pd.guideid);
+        if (curtTaskData!=null)
+        {
+            SetGuideBtnIcon(curtTaskData.npcID);
+        }else
+            SetGuideBtnIcon(-1);
+    }
+
+    private void SetGuideBtnIcon(int npcId)
+    {
+        string spPath = "";
+        Image img = btnGuide.GetComponent<Image>();
+        switch (npcId)
+        {
+            case Constants.NPCWiseMan:
+                spPath = PathDefine.WiseManHead;
+                break;
+            case Constants.NPCArtisan:
+                spPath = PathDefine.ArtisanHead;
+                break;
+            case Constants.NPCGeneral:
+                spPath = PathDefine.GeneralHead;
+                break;
+            case Constants.NPCTrader:
+                spPath = PathDefine.TraderHead;
+                break;
+            default:
+                spPath = PathDefine.TaskHead;
+                break;
+        }
+        SetSprite(img,spPath);
     }
 
     #endregion
 
     #region ClickEvts
+
+    public void ClickGuideBtn()
+    {
+        audioSvc.PlayUIAduio(Constants.UIClickBtn);
+        if (curtTaskData!=null)
+        {
+            MainCitySys.Instance.RunTask(curtTaskData);
+        }
+        else
+        {
+            GameRoot.AddTips("更多引导任务,正在开发中...");
+        }
+    }
     public void ClickMenuBtn()
     {
         audioSvc.PlayUIAduio(Constants.UIExtenBtn);
@@ -93,6 +144,12 @@ public class MainCityWnd : WindowRoot
             clip = menuAni.GetClip("CloseMCMenu");
 
         menuAni.Play(clip.name);
+    }
+    
+    public void ClickHeadBtn()
+    {
+       audioSvc.PlayUIAduio(Constants.UIOpenPage);
+       MainCitySys.Instance.OpenInfoWnd();
     }
 
     public void RegisterTouchEvts()

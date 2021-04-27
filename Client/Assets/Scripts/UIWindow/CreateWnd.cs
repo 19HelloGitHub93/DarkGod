@@ -16,7 +16,7 @@ public class CreateWnd : WindowRoot
     public void ClickRandBtn()
     {
         audioSvc.PlayUIAduio(Constants.UIClickBtn);
-        string rdName = resSvc.GetRDNameData();
+        string rdName = resSvc.GetRDNameData(false);
         iptName.text = rdName;
     }
 

@@ -79,6 +79,10 @@ public class NetSvc : MonoBehaviour
         {
             switch ((ErrorCode)msg.err)
             {
+                case ErrorCode.ServerDataError:
+                    PECommon.Log("服务器数据异常",LogType.Error);
+                    GameRoot.AddTips("客户端数据异常");
+                    break;
                 case ErrorCode.UpdateDBError:
                     PECommon.Log("数据库更新异常",LogType.Error);
                     GameRoot.AddTips("网络不稳定");
@@ -100,6 +104,9 @@ public class NetSvc : MonoBehaviour
                 break;
             case CMD.RspRename:
                 LoginSys.Instance.RspRename(msg);
+                break;
+            case CMD.RspGuide:
+                MainCitySys.Instance.RspGuide(msg);
                 break;
         }
     }

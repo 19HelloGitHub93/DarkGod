@@ -86,8 +86,12 @@ public class WindowRoot : MonoBehaviour
         SetText(trans.GetComponent<Text>(),context);
     }
 
-    #endregion
-
+    protected void SetSprite(Image img, string path)
+    {
+        Sprite sp = resSvc.LoadSprite(path,true);
+        img.sprite = sp;
+    }
+    
     protected T GetOrAddComponent<T>(GameObject go) where T: Component
     {
         T component = go.GetComponent<T>();
@@ -95,7 +99,9 @@ public class WindowRoot : MonoBehaviour
             component = go.AddComponent<T>();
         return component;
     }
-    
+
+    #endregion
+
     #region ClickEvts
 
     protected void OnClickDown(GameObject go, Action<PointerEventData> cb)
