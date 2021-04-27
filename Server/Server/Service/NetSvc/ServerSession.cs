@@ -1,6 +1,5 @@
 using PENet;
 using PEProtocol;
-using Server.Cache;
 using Server.System.LoginSys;
 
 namespace Server.Service.NetSvc

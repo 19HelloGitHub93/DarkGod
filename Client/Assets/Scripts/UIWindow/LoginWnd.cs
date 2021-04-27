@@ -33,7 +33,7 @@ public class LoginWnd : WindowRoot
 
     public void ClickEnterBtn()
     {
-        audioSvc.PlayUIAduio(Constants.UILoginBtn);
+        audioSvc.PlayUIAudio(Constants.UILoginBtn);
         string acct = iptAcct.text;
         string pass = iptPass.text;
         if (acct != "" && pass != "")
@@ -60,7 +60,7 @@ public class LoginWnd : WindowRoot
 
     public void ClickNoticeBtn()
     {
-        audioSvc.PlayUIAduio(Constants.UIClickBtn);
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
         GameRoot.AddTips("功能正在开发中...");
     }
 }

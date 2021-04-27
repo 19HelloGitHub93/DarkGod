@@ -85,19 +85,19 @@ public class InfoWnd : WindowRoot
 
    public void ClickCloseBtn()
    {
-      audioSvc.PlayUIAduio(Constants.UIClickBtn);
+      audioSvc.PlayUIAudio(Constants.UIClickBtn);
       MainCitySys.Instance.CloseInfoWnd();
    }
 
    public void ClickDetailBtn()
    {
-      audioSvc.PlayUIAduio(Constants.UIClickBtn);
+      audioSvc.PlayUIAudio(Constants.UIClickBtn);
       SetActive(transDetail);
    }
 
    public void ClickCloseDetailBtn()
    {
-      audioSvc.PlayUIAduio(Constants.UIClickBtn);
+      audioSvc.PlayUIAudio(Constants.UIClickBtn);
       SetActive(transDetail,false);
    }
 }

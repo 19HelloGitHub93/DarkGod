@@ -66,4 +66,5 @@ public class Constants
     public const string BGMainCity = "bgMainCity";
     public const string UIExtenBtn = "uiExtenBtn";
     public static string UIOpenPage = "uiOpenPage";
+    public static string FBItemEnter;
 }

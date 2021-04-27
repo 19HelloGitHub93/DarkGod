@@ -8,7 +8,7 @@ public class PathDefine
     public static string RDNameCfg="ResCfgs/rdname";
     public static string MapCfg = "ResCfgs/map";
     public static string GuideCfg = "ResCfgs/guide";
-    
+    public static string StrongCfg = "ResCfgs/strong";
     #endregion
 
     #region AutoGuide
@@ -32,5 +32,20 @@ public class PathDefine
 
     #endregion
 
-    
+    #region Strong
+    public static string ItemArrorBG = "ResImages/btnstrong";
+    public static string ItemPlatBG = "ResImages/charbg3";
+    public static string ItemToukui = "";
+    public static string ItemBody = "";
+    public static string ItemYaobu = "";
+    public static string ItemHand { get; set; }
+    public static string ItemLeg { get; set; }
+    public static string ItemFoot { get; set; }
+    public static string SpStar2 { get; set; }
+    public static string SpStar1 { get; set; }
+
+    #endregion
+
+
+   
 }

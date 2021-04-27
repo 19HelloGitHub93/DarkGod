@@ -1,4 +1,7 @@
-﻿namespace Server
+﻿using System;
+using System.Configuration;
+
+namespace Server
 {
     internal class ServerStart
     {

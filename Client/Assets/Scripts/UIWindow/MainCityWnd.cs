@@ -121,9 +121,15 @@ public class MainCityWnd : WindowRoot
 
     #region ClickEvts
 
+    public void ClickStrongBtn()
+    {
+        audioSvc.PlayUIAudio(Constants.UIOpenPage);
+        MainCitySys.Instance.OpenStrongWnd();
+    }
+    
     public void ClickGuideBtn()
     {
-        audioSvc.PlayUIAduio(Constants.UIClickBtn);
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
         if (curtTaskData!=null)
         {
             MainCitySys.Instance.RunTask(curtTaskData);
@@ -135,7 +141,7 @@ public class MainCityWnd : WindowRoot
     }
     public void ClickMenuBtn()
     {
-        audioSvc.PlayUIAduio(Constants.UIExtenBtn);
+        audioSvc.PlayUIAudio(Constants.UIExtenBtn);
         menuState = !menuState;
         AnimationClip clip = null;
         if (menuState)
@@ -148,7 +154,7 @@ public class MainCityWnd : WindowRoot
     
     public void ClickHeadBtn()
     {
-       audioSvc.PlayUIAduio(Constants.UIOpenPage);
+       audioSvc.PlayUIAudio(Constants.UIOpenPage);
        MainCitySys.Instance.OpenInfoWnd();
     }
 

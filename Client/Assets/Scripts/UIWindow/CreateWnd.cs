@@ -15,14 +15,14 @@ public class CreateWnd : WindowRoot
 
     public void ClickRandBtn()
     {
-        audioSvc.PlayUIAduio(Constants.UIClickBtn);
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
         string rdName = resSvc.GetRDNameData(false);
         iptName.text = rdName;
     }
 
     public void ClickEnterBtn()
     {
-        audioSvc.PlayUIAduio(Constants.UIClickBtn);
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
         if (iptName.text != "")
         {
             GameMsg msg = new GameMsg

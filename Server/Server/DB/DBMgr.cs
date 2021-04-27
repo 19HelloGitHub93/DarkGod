@@ -48,8 +48,27 @@ namespace Server.DB
                             dodge = reader.GetInt32("dodge"),
                             pierce = reader.GetInt32("pierce"),
                             critical = reader.GetInt32("critical"),
-                            guideid = reader.GetInt32("guideid")
+                            guideid = reader.GetInt32("guideid"),
                         };
+
+                        #region strong
+
+                        string[] strongStrArr = reader.GetString("strong").Split('#');
+                        int[] _strongArr = new int[6];
+                        for (int i = 0; i < strongStrArr.Length; i++)
+                        {
+                            if (strongStrArr[i] == "")
+                                continue;
+                            if (int.TryParse(strongStrArr[i], out int starlv))
+                                _strongArr[i] = starlv;
+                            else
+                                PECommon.Log("Parse strong data error",LogType.Error);
+                        }
+
+                        playerData.strongArr = _strongArr;
+
+                        #endregion
+                        
                     }
                     reader.Close();
                     return playerData;
@@ -74,7 +93,8 @@ namespace Server.DB
                     dodge = 7,
                     pierce = 5,
                     critical = 2,
-                    guideid = 1001
+                    guideid = 1001,
+                    strongArr = new int[6],
                 };
                 playerData.id = InsertNewAcctData(acct, pass, playerData);
             }
@@ -93,7 +113,7 @@ namespace Server.DB
                 MySqlCommand cmd = new MySqlCommand(
                     "insert into account set acct=@acct,pass=@pass,name=@name,level=@level,exp=@exp,power=@power,"+
                     "coin=@coin,diamond=@diamond,hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge," +
-                    "pierce=@pierce,critical=@critical,guideid=@guideid",conn);
+                    "pierce=@pierce,critical=@critical,guideid=@guideid,strong=@strong",conn);
                 cmd.Parameters.Add("acct", acct);
                 cmd.Parameters.Add("pass", pass);
                 cmd.Parameters.Add("name", pd.name);
@@ -111,6 +131,14 @@ namespace Server.DB
                 cmd.Parameters.AddWithValue("pierce", pd.pierce);
                 cmd.Parameters.AddWithValue("critical", pd.critical);
                 cmd.Parameters.AddWithValue("guideid", pd.guideid);
+
+                string strongInfo = "";
+                for (int i = 0; i < pd.strongArr.Length; i++)
+                {
+                    strongInfo += pd.strongArr[i];
+                    strongInfo += "#";
+                }
+                cmd.Parameters.AddWithValue("strong", strongInfo);
                 cmd.ExecuteNonQuery();
                 id = (int) cmd.LastInsertedId;
             }
@@ -152,8 +180,8 @@ namespace Server.DB
             {
                 MySqlCommand cmd = new MySqlCommand(
                     "update account set name=@name,level=@level,exp=@exp,power=@power,coin=@coin,diamond=@diamond,"+
-                    "hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge,pierce=@pierce,critical=@critical,guideid=@guideid" +
-                    " where id=@id",conn);
+                    "hp=@hp,ad=@ad,ap=@ap,addef=@addef,apdef=@apdef,dodge=@dodge,pierce=@pierce,critical=@critical," +
+                    "guideid=@guideid,strong=@strong where id=@id",conn);
                 cmd.Parameters.Add("id", @id);
                 cmd.Parameters.Add("name", playerData.name);
                 cmd.Parameters.Add("level", playerData.lv);
@@ -171,7 +199,14 @@ namespace Server.DB
                 cmd.Parameters.AddWithValue("critical", playerData.critical);
                 cmd.Parameters.AddWithValue("guideid", playerData.guideid);
 
-                cmd.ExecuteNonQuery();   
+                string strongInfo = "";
+                for (int i = 0; i < playerData.strongArr.Length; i++)
+                {
+                    strongInfo += playerData.strongArr[i];
+                    strongInfo += "#";
+                }
+                cmd.Parameters.AddWithValue("strong", strongInfo);
+                cmd.ExecuteNonQuery();
             }
             catch (Exception e)
             {

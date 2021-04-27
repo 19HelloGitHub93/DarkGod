@@ -14,6 +14,9 @@ namespace PEProtocol
 
         public RspGuide rspGuide;
         public ReqGuide reqGuide;
+
+        public RspStrong rspStrong;
+        public ReqStrong reqStrong;
     }
 
     #region 登录相关
@@ -52,6 +55,8 @@ namespace PEProtocol
         public int critical;
         
         public int guideid;
+        public int[] strongArr;
+        public int crystal;
     }
 
     [Serializable]
@@ -64,6 +69,18 @@ namespace PEProtocol
     public class RspRename
     {
         public string name;
+    }
+
+    [Serializable]
+    public class RspStrong
+    {
+        public int pos;
+    }
+
+    [Serializable]
+    public class ReqStrong
+    {
+        public int pos;
     }
 
     #endregion
@@ -109,6 +126,9 @@ namespace PEProtocol
         //主城
         ReqGuide=200,
         RspGuide=201,
+        
+        ReqStrong=202,
+        RspStrong=203,
     }
 
     public class SrvCfg

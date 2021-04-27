@@ -2,6 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public class StrongCfg : BaseData<StrongCfg>
+{
+    public int pos;
+    public int startlv;
+    public int addhp;
+    public int addhurt;
+    public int adddef;
+    public int minlv;
+    public int crystal;
+    public int coin;
+}
 public class AutoGuideCfg : BaseData<AutoGuideCfg>
 {
     public int npcID;

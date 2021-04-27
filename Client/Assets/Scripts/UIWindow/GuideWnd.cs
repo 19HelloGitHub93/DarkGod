@@ -64,7 +64,7 @@ public class GuideWnd : WindowRoot {
 
     public void ClickNextBtn()
     {
-        audioSvc.PlayUIAduio(Constants.UIClickBtn);
+        audioSvc.PlayUIAudio(Constants.UIClickBtn);
         index += 1;
         if (index >= dialogArr.Length)
         {

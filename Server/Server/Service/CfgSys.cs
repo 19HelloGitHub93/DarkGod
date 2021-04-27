@@ -22,7 +22,7 @@ namespace Server.Service
         private void InitGuideCfg()
         {
             XmlDocument doc = new XmlDocument();
-            doc.Load(@"E:\Project\Unity\DarkGod\Client\Assets\Resources\ResCfgs\guide.xml");
+            doc.Load(Tools.getGuidePath());
 
             XmlNodeList nodeList = doc.SelectSingleNode("root").ChildNodes;
             for (int i = 0; i < nodeList.Count; i++)
